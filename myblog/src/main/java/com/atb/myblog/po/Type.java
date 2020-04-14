@@ -26,7 +26,7 @@ public class Type {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -34,7 +34,7 @@ public class Type {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -42,7 +42,7 @@ public class Type {
         return blogs;
     }
 
-    public void setBlogs(List<Blog> blogs) {
+    public void setBlogs(final List<Blog> blogs) {
         this.blogs = blogs;
     }
 

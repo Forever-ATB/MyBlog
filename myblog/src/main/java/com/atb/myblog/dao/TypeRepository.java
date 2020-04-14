@@ -10,7 +10,6 @@ import java.util.List;
 /**
  * @Date 2020/4/4 16:59
  * @Created by : 叶宗海
- * @Description : TODO
  */
 
 public interface TypeRepository extends JpaRepository<Type,Long> {

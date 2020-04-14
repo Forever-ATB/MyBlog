@@ -1,7 +1,6 @@
 package com.atb.myblog.web.admin;
 
 import com.atb.myblog.po.Blog;
-import com.atb.myblog.po.Type;
 import com.atb.myblog.po.User;
 import com.atb.myblog.service.BlogService;
 import com.atb.myblog.service.TagService;

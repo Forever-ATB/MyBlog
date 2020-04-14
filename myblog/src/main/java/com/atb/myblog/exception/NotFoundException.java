@@ -6,13 +6,17 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * @Date 2020/4/4 00:36
  * @Created by : 叶宗海
- * @Description : TODO
  */
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class NotFoundException extends RuntimeException {
 
-    public NotFoundException() {
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public NotFoundException() {
     }
 
     public NotFoundException(String message) {

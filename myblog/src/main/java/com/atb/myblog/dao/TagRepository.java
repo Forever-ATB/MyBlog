@@ -1,7 +1,6 @@
 package com.atb.myblog.dao;
 
 import com.atb.myblog.po.Tag;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

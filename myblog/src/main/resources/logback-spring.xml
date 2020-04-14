@@ -27,6 +27,7 @@
     </appender>
 
     <root level="INFO">
+        <appender-ref ref="CONSOLE" />
         <appender-ref ref="TIME_FILE" />
     </root>
 

@@ -1,10 +1,8 @@
 package com.atb.myblog.web;
 
-import com.atb.myblog.exception.NotFoundException;
 import com.atb.myblog.service.BlogService;
 import com.atb.myblog.service.TagService;
 import com.atb.myblog.service.TypeService;
-import com.atb.myblog.vo.BlogQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

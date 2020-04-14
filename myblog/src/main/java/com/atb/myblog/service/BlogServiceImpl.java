@@ -20,9 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.criteria.*;
 import java.util.*;
 
-/**
- * Created by limi on 2017/10/20.
- */
+
 @Service
 public class BlogServiceImpl implements BlogService {
 
@@ -31,20 +29,20 @@ public class BlogServiceImpl implements BlogService {
     private BlogRepository blogRepository;
 
     @Override
-    public Blog getBlog(Long id) {
+    public Blog getBlog(final Long id) {
         return blogRepository.findById(id).orElse(null);
     }
 
     @Transactional
     @Override
-    public Blog getAndConvert(Long id) {
-        Blog blog = blogRepository.findById(id).orElse(null);
+    public Blog getAndConvert(final Long id) {
+        final Blog blog = blogRepository.findById(id).orElse(null);
         if (blog == null) {
             throw new NotFoundException("该博客不存在");
         }
-        Blog b = new Blog();
+        final Blog b = new Blog();
         BeanUtils.copyProperties(blog,b);
-        String content = b.getContent();
+        final String content = b.getContent();
         b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
 
         blogRepository.updateViews(id);
@@ -53,11 +51,16 @@ public class BlogServiceImpl implements BlogService {
 
 
     @Override
-    public Page<Blog> listBlog(Pageable pageable, BlogQuery blog) {
+    public Page<Blog> listBlog(final Pageable pageable, final BlogQuery blog) {
         return blogRepository.findAll(new Specification<Blog>() {
-            @Override
-            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-                List<Predicate> predicates = new ArrayList<>();
+            /**
+			 *
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+            public Predicate toPredicate(final Root<Blog> root, final CriteriaQuery<?> cq, final CriteriaBuilder cb) {
+                final List<Predicate> predicates = new ArrayList<>();
                 if (!"".equals(blog.getTitle()) && blog.getTitle() != null) {
                     predicates.add(cb.like(root.<String>get("title"), "%"+blog.getTitle()+"%"));
                 }
@@ -74,15 +77,20 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Page<Blog> listBlog(Pageable pageable) {
+    public Page<Blog> listBlog(final Pageable pageable) {
         return blogRepository.findAll(pageable);
     }
 
     @Override
-    public Page<Blog> listBlog(Long tagId, Pageable pageable) {
+    public Page<Blog> listBlog(final Long tagId, final Pageable pageable) {
         return blogRepository.findAll(new Specification<Blog>() {
-            @Override
-            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+            /**
+			 *
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+            public Predicate toPredicate(final Root<Blog> root, final CriteriaQuery<?> cq, final CriteriaBuilder cb) {
                 Join join = root.join("tags");
                 return cb.equal(join.get("id"),tagId);
             }
@@ -90,22 +98,22 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Page<Blog> listBlog(String query, Pageable pageable) {
+    public Page<Blog> listBlog(final String query, final Pageable pageable) {
         return blogRepository.findByQuery(query,pageable);
     }
 
     @Override
-    public List<Blog> listRecommendBlogTop(Integer size) {
-        Sort sort =Sort.by(Sort.Direction.DESC,"updateTime");
-        Pageable pageable =PageRequest.of(0, size, sort);
+    public List<Blog> listRecommendBlogTop(final Integer size) {
+        final Sort sort =Sort.by(Sort.Direction.DESC,"updateTime");
+        final Pageable pageable =PageRequest.of(0, size, sort);
         return blogRepository.findTop(pageable);
     }
 
     @Override
     public Map<String, List<Blog>> archiveBlog() {
-        List<String> years = blogRepository.findGroupYear();
-        Map<String, List<Blog>> map = new HashMap<>();
-        for (String year : years) {
+        final List<String> years = blogRepository.findGroupYear();
+        final Map<String, List<Blog>> map = new HashMap<>();
+        for (final String year : years) {
             map.put(year, blogRepository.findByYear(year));
         }
         return map;
@@ -119,7 +127,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Transactional
     @Override
-    public Blog saveBlog(Blog blog) {
+    public Blog saveBlog(final Blog blog) {
         if (blog.getId() == null) {
             blog.setCreateTime(new Date());
             blog.setUpdateTime(new Date());
@@ -132,8 +140,8 @@ public class BlogServiceImpl implements BlogService {
 
     @Transactional
     @Override
-    public Blog updateBlog(Long id, Blog blog) {
-        Blog b = blogRepository.findById(id).orElse(null);
+    public Blog updateBlog(final Long id, final Blog blog) {
+        final Blog b = blogRepository.findById(id).orElse(null);
         if (b == null) {
             throw new NotFoundException("该博客不存在");
         }
@@ -144,7 +152,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Transactional
     @Override
-    public void deleteBlog(Long id) {
+    public void deleteBlog(final Long id) {
         blogRepository.deleteById(id);
     }
 }

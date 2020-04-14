@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * @Date 2020/4/4 15:12
  * @Created by : 叶宗海
- * @Description : TODO
  */
 
 public interface UserRepository extends JpaRepository<User,Long> {
